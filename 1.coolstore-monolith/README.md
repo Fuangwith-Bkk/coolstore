@@ -16,5 +16,5 @@
 ### Container Image
 https://quay.io/repository/fuangwit/coolstore-monolith
 
-
-[Back to homepage](README.md)
+---
+[Back to homepage](../README.md)
