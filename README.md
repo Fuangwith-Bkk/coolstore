@@ -24,3 +24,6 @@ Deploy microservices app in single project. (5.coolstore-all-in-one)
 [Steps to deploy](5.coolstore-all-in-one/README.md)
 
 ![All-in-one](images/all-in-one-topology.png)
+
+---
+Original source code: [https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git](https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git)
