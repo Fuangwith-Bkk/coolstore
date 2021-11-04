@@ -1,4 +1,5 @@
 # coolstore
+![UI](https://github.com/Fuangwith-Bkk/coolstore/raw/main/images/coolstore-ui.png)
 
 ## Monolith 
 1.coolstore-monolith is 1 app and 1 database for whole coolstore shop.
