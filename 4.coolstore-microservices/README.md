@@ -39,8 +39,11 @@ There are 3 projects (namespace) for each service:
 
 ### Container Image
 https://quay.io/repository/fuangwit/coolstore-inventory
+
 https://quay.io/repository/fuangwit/coolstore-catalog
+
 https://quay.io/repository/fuangwit/coolstore-microservices
+
 
 ---
 [Back to homepage](https://github.com/Fuangwith-Bkk/coolstore)
