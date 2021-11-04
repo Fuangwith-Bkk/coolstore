@@ -3,6 +3,9 @@
 
 ## Monolith 
 1.coolstore-monolith is 1 app and 1 database for whole coolstore shop.
+
+[Steps to deploy](1.coolstore-monolith/README.md)
+
 ![monolith](images/monolith-project.png)
 
 ## Microservices
