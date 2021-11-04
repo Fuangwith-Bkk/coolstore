@@ -1,5 +1,5 @@
 # coolstore
-![UI](https://github.com/Fuangwith-Bkk/coolstore/raw/main/images/coolstore-ui.png)
+![UI](images/coolstore-ui.png)
 
 ## Monolith 
 1.coolstore-monolith is 1 app and 1 database for whole coolstore shop.
@@ -9,6 +9,7 @@ Split monolith coolstore app to
 - Inventory app developed by Quarkus (2.coolstore-inventory)
 - Catalog app developed by Spring-Boot (3.coolstore-catalog)
 - UI (4.coolstore-microservices)
+![projects](images/microservices-projects.png)
 
 ## Microservices All-in-one
 Deploy microservices app in single project. (5.coolstore-all-in-one)
