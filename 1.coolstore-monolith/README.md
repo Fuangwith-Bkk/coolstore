@@ -1,4 +1,4 @@
-# Steps to deploy the Cool Store Shop monolitic application
+# Steps to deploy the Cool Store Shop monolitic architecture
 
 ```bash
   oc login -u <username> -p <password> <OpenShift API URL>
