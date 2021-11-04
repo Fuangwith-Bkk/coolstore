@@ -28,6 +28,9 @@ oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite -n 
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database -n coolstore-shop 
 
 
+oc set env dc/catalog-springboot --env=inventory.url='inventory.coolstore-shop.svc.cluster.local:8080' --overwrite=true -n coolstore-shop
+
+
 ### Coolstore ###
 oc apply -f role-secret.yaml -n coolstore-shop
 oc apply -f coolstore-microservices-db.yaml -n coolstore-shop
