@@ -14,10 +14,13 @@ Breaking the monolithic architecture to
 - Catalog service developed by Spring-Boot (3.coolstore-catalog)
 - Frontend (4.coolstore-microservices)
 
-[Step to deploy](4.coolstore-microservices/README.md)
+[Steps to deploy](4.coolstore-microservices/README.md)
 
 ![projects](images/microservices-projects.png)
 
 ## Microservices All-in-one
 Deploy microservices app in single project. (5.coolstore-all-in-one)
+
+[Steps to deploy](5.coolstore-all-in-one/README.md)
+
 ![All-in-one](images/all-in-one-topology.png)
