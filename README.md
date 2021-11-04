@@ -12,3 +12,4 @@ Split monolith coolstore app to
 
 ## Microservices All-in-one
 Deploy microservices app in single project. (5.coolstore-all-in-one)
+![All-in-one](images/all-in-one-topology.png)
