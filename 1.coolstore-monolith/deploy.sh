@@ -15,5 +15,5 @@ oc label dc/coolstore app.kubernetes.io/part-of=coolstore --overwrite -n coolsto
 oc annotate dc/coolstore app.openshift.io/connects-to=coolstore-postgresql --overwrite -n coolstore-monolith 
 
 
-#oc annotate dc/coolstore app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git --overwrite -n coolstore-monolith 
+#oc annotate dc/coolstore app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite -n coolstore-monolith 
 #oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.7 --overwrite -n coolstore-monolith
