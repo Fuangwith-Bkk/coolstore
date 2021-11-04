@@ -1,0 +1,107 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: catalog-database
+spec:
+  strategy:
+    type: Recreate
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+  replicas: 1
+  selector:
+    name: catalog-database
+  template:
+    metadata:
+      labels:
+        name: catalog-database
+    spec:
+      volumes:
+        - name: catalog-database-data
+          emptyDir: {}
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - /usr/libexec/check-container
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: postgresql
+          livenessProbe:
+            exec:
+              command:
+                - /usr/libexec/check-container
+                - '--live'
+            initialDelaySeconds: 120
+            timeoutSeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: catalog-database
+                  key: database-user
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: catalog-database
+                  key: database-password
+            - name: POSTGRESQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: catalog-database
+                  key: database-name
+          securityContext:
+            capabilities: {}
+            privileged: false
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: catalog-database-data
+              mountPath: /var/lib/pgsql/data
+          terminationMessagePolicy: File
+          image: registry.redhat.io/rhel8/postgresql-10
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: catalog-database
+spec:
+  ports:
+    - name: postgresql
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+    name: catalog-database
+
+
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: catalog-database
+data:
+  database-name: Y2F0YWxvZw==
+  database-password: bXlzZWNyZXRwYXNzd29yZA==
+  database-user: Y2F0YWxvZw==
+type: Opaque
+
+ 
