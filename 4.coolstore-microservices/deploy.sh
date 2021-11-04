@@ -17,5 +17,5 @@ oc label dc/coolstore app.kubernetes.io/part-of=coolstore --overwrite -n coolsto
 oc annotate dc/coolstore app.openshift.io/connects-to=coolstore-postgresql --overwrite -n coolstore-microservices 
 
 
-CATALOG_BASE_URL="http://$(oc get route.route.openshift.io/catalog-springboot -n coolstore-catalog -o 'jsonpath={.spec.host}')//services/products"
+CATALOG_BASE_URL="http://$(oc get route.route.openshift.io/catalog-springboot -n coolstore-catalog -o 'jsonpath={.spec.host}')/services/products"
 oc set env dc/coolstore --env=CATALOG_BASE_URL=$CATALOG_BASE_URL --overwrite=true -n coolstore-microservices
