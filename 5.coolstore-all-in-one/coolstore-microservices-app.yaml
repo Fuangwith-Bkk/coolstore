@@ -1,0 +1,181 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: coolstore
+spec:
+  strategy:
+    type: Recreate
+    resources: {}
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+  triggers:
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    deploymentConfig: coolstore
+  template:
+    metadata:
+      name: coolstore
+      creationTimestamp: null
+      labels:
+        application: coolstore
+        deploymentConfig: coolstore
+    spec:
+      restartPolicy: Always
+      serviceAccountName: coolstore-serviceaccount
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 75
+      securityContext: {}
+      containers:
+        - resources: {}
+          readinessProbe:
+            httpGet:
+              path: /health.jsp
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 20
+          livenessProbe:
+            httpGet:
+              path: /health.jsp
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 20
+          terminationMessagePath: /dev/termination-log
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /opt/eap/bin/jboss-cli.sh
+                  - '-c'
+                  - ':shutdown(timeout=60)'
+          name: coolstore
+          env:
+            - name: DB_SERVICE_PREFIX_MAPPING
+              value: coolstore-postgresql=DB
+            - name: DB_JNDI
+              value: 'java:jboss/datasources/CoolstoreDS'
+            - name: DB_USERNAME
+              value: coolstore
+            - name: DB_PASSWORD
+              value: coolstore123
+            - name: DB_DATABASE
+              value: monolith
+            - name: TX_DATABASE_PREFIX_MAPPING
+              value: coolstore-postgresql=DB
+            - name: MQ_TOPICS
+              value: orders
+            - name: OPENSHIFT_KUBE_PING_LABELS
+              value: application=coolstore
+            - name: OPENSHIFT_KUBE_PING_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: HTTPS_KEYSTORE_DIR
+              value: /etc/eap-secret-volume
+            - name: HTTPS_KEYSTORE
+              value: keystore.jks
+            - name: HTTPS_KEYSTORE_TYPE
+              value: JKS
+            - name: HTTPS_NAME
+              value: jboss
+            - name: HTTPS_PASSWORD
+              value: mykeystorepass
+            - name: MQ_CLUSTER_PASSWORD
+              value: coolstore123
+            - name: JGROUPS_ENCRYPT_SECRET
+              value: coolstore-secret
+            - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
+              value: /etc/jgroups-encrypt-secret-volume
+            - name: JGROUPS_ENCRYPT_KEYSTORE
+              value: jgroups.jceks
+            - name: JGROUPS_ENCRYPT_NAME
+              value: secret-key
+            - name: JGROUPS_ENCRYPT_PASSWORD
+              value: password
+            - name: JGROUPS_CLUSTER_PASSWORD
+              value: openshift123
+            - name: DEFAULT_JOB_REPOSITORY
+              value: coolstore-postgresql
+            - name: TIMER_SERVICE_DATA_STORE
+              value: coolstore-postgresql
+            - name: CATALOG_BASE_URL
+              value: http://catalog-springboot-coolstore-catalog.apps.cluster-l45lg.l45lg.sandbox104.opentlc.com/services/products
+          ports:
+            - name: jolokia
+              containerPort: 8778
+              protocol: TCP
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+            - name: ping
+              containerPort: 8888
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: eap-keystore-volume
+              readOnly: true
+              mountPath: /etc/eap-secret-volume
+            - name: eap-jgroups-keystore-volume
+              readOnly: true
+              mountPath: /etc/jgroups-encrypt-secret-volume
+          terminationMessagePolicy: File
+          image: 'quay.io/fuangwit/coolstore-microservices:0.1'
+      serviceAccount: coolstore-serviceaccount
+      volumes:
+        - name: eap-keystore-volume
+          secret:
+            secretName: coolstore-secret
+            defaultMode: 420
+        - name: eap-jgroups-keystore-volume
+          secret:
+            secretName: coolstore-secret
+            defaultMode: 420
+ 
+
+
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: coolstore
+  labels:
+    application: coolstore
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    deploymentConfig: coolstore
+  
+
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: coolstore
+  labels:
+    application: coolstore
+spec:
+  to:
+    kind: Service
+    name: coolstore
+    weight: 100
+  wildcardPolicy: None
+
