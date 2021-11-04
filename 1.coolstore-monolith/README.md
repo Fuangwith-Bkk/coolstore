@@ -2,6 +2,7 @@
 
 ```bash
   oc login -u <username> -p <password> <OpenShift API URL>
+  cd 1.coolstore-monolith
   ./deploy.sh
 ```
 
@@ -15,3 +16,5 @@
 ### Container Image
 https://quay.io/repository/fuangwit/coolstore-monolith
 
+
+[Back to homepage](README.md)
