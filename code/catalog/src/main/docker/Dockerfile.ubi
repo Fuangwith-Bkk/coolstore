@@ -1,0 +1,11 @@
+FROM registry.access.redhat.com/ubi8/openjdk-11-runtime:1.11
+WORKDIR /work/
+RUN chown 185 /work \
+    && chmod "g+rwX" /work \
+    && chown 185:root /work
+COPY --chown=185:root target/*.jar /work/app.jar
+
+EXPOSE 8080
+USER 185
+CMD ["java", "-jar", "app.jar"]
+
