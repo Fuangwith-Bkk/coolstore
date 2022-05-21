@@ -66,7 +66,11 @@
     ![](../images/demo-s2i-coolstore-website.png)
 
 3. Let's backup 
-   `switch to demo backup tool ...`
+   > switch to demo backup tool ...
+
+   > backup mountPath: /var/lib/pgsql/data of inventory-database
+
+
 
 
 4. update quantity of red `Pronounced Kubernetes` t-shirt.
@@ -85,4 +89,4 @@
     ![](../images/demo-s2i-t-shirt-500.png)
 
 6. rollback by the backup tool.
-   `switch to demo how to rollback by the backup tool ...`
+   > switch to demo how to rollback by the backup tool ...
