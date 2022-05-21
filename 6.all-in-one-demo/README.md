@@ -68,7 +68,7 @@
 3. Let's backup 
    > switch to demo backup tool ...
 
-   > backup mountPath: /var/lib/pgsql/data of inventory-database
+   > backup mountPath: `/var/lib/pgsql/data` of inventory-database
 
 
 
