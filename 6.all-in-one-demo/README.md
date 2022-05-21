@@ -76,14 +76,14 @@
 4. update quantity of red `Pronounced Kubernetes` t-shirt.
    - Jump into terminal of `inventory-database-xxx` pod
    - use following command lines:
-     - connect to a database a `inventory` database
-      `psql -d inventory -U inventory -W`
+     - connect to a database a `inventory` database <br>
+      <code>psql -d inventory -U inventory -W</code>
      - enter password: `mysecretpassword`
-     - query all items in an inventory
-      `select * from inventory;`
-     - update quantity of itemid `329199` to `500`
-      `update inventory set quantity=500 where itemid='329199';`
-    ![](../images/demo-s2i-update-inventory.png)
+     - query all items in an inventory <br>
+      <code>select * from inventory;</code>
+     - update quantity of itemid `329199` to `500` <br>
+      <code>update inventory set quantity=500 where itemid='329199';</code> <br><br>
+    ![](../images/demo-s2i-update-inventory.png)<br>
 
 5. refresh the Coolstore Online Shopping page. 
     ![](../images/demo-s2i-t-shirt-500.png)
