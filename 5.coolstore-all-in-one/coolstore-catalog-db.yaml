@@ -1,3 +1,24 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: catalog-database-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: gp2
+  volumeMode: Filesystem
+status:
+  phase: Bound
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+
+
+---
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
@@ -21,7 +42,8 @@ spec:
     spec:
       volumes:
         - name: catalog-database-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: catalog-database-storage
       containers:
         - resources:
             limits:
