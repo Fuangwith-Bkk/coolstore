@@ -6,8 +6,8 @@ NAMESPACE='demo'
 
 ### Inventory ###
 
-oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite  -n $NAMESPACE
-oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite  -n $NAMESPACE
+oc label deployment.apps/inventory-database app.openshift.io/runtime=postgresql --overwrite  -n $NAMESPACE
+oc label deployment.apps/inventory-database app.kubernetes.io/part-of=inventory --overwrite  -n $NAMESPACE
 
 oc label deployment.apps/inventory app.openshift.io/runtime=quarkus --overwrite  -n $NAMESPACE
 oc label deployment.apps/inventory app.kubernetes.io/part-of=inventory --overwrite  -n $NAMESPACE
@@ -41,17 +41,3 @@ oc set env deployment.apps/coolstore --env=CATALOG_BASE_URL=$CATALOG_BASE_URL --
 ### 
 oc annotate deployment.apps/coolstore app.openshift.io/connects-to=catalog-service,coolstore-postgresql --overwrite -n $NAMESPACE
 oc annotate deployment.apps/catalog-service app.openshift.io/connects-to=inventory,catalog-database --overwrite -n $NAMESPACE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
