@@ -46,10 +46,6 @@ oc annotate deployment.apps/catalog-service app.openshift.io/connects-to=invento
 
 
 
-https://catalog-service-ztest.apps.cluster-sm69l.sm69l.sandbox1587.opentlc.com/services/products
-http://catalog-service-ztest.apps.cluster-sm69l.sm69l.sandbox1587.opentlc.com/services/products
-
-
 
 
 
