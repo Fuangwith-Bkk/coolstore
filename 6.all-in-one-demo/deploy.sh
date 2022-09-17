@@ -35,7 +35,7 @@ oc label deployment.apps/coolstore-postgresql app.kubernetes.io/part-of=coolstor
 oc label deployment.apps/coolstore app.kubernetes.io/part-of=coolstore --overwrite -n $NAMESPACE
 oc annotate deployment.apps/coolstore app.openshift.io/connects-to=coolstore-postgresql -n $NAMESPACE
 
-CATALOG_BASE_URL="http://$(oc get route.route.openshift.io/catalog-service -n $NAMESPACE -o 'jsonpath={.spec.host}')/services/products"
+CATALOG_BASE_URL="https://$(oc get route.route.openshift.io/catalog-service -n $NAMESPACE -o 'jsonpath={.spec.host}')/services/products"
 oc set env deployment.apps/coolstore --env=CATALOG_BASE_URL=$CATALOG_BASE_URL --overwrite=true -n $NAMESPACE
 
 ### 
@@ -46,7 +46,8 @@ oc annotate deployment.apps/catalog-service app.openshift.io/connects-to=invento
 
 
 
-
+https://catalog-service-ztest.apps.cluster-sm69l.sm69l.sandbox1587.opentlc.com/services/products
+http://catalog-service-ztest.apps.cluster-sm69l.sm69l.sandbox1587.opentlc.com/services/products
 
 
 
