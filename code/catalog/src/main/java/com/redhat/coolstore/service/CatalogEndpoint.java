@@ -5,7 +5,7 @@ import com.redhat.coolstore.model.Product;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RequestMapping("/services")
 public class CatalogEndpoint {
 
