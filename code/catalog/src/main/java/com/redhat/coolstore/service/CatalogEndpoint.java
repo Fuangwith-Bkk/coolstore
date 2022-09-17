@@ -5,7 +5,7 @@ import com.redhat.coolstore.model.Product;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
+@CrossOrigin
 @RequestMapping("/services")
 public class CatalogEndpoint {
 
@@ -17,7 +17,6 @@ public class CatalogEndpoint {
 
     @GetMapping("/products")
     public List<Product> readAll() {
-      System.out.println("/products");
       return this.catalogService.readAll();
     }
 
