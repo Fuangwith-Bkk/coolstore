@@ -23,9 +23,7 @@ public class RestApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 CorsRegistration reg = registry.addMapping("/**");
-                for(String url: urls.split(",")) {
-                    reg.allowedOrigins("*");
-                }
+                reg.allowedOrigins("*");
             }
         };
     }    
