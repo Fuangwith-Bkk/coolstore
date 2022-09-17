@@ -1,10 +1,8 @@
 ---
-kind: DeploymentConfig
-apiVersion: apps.openshift.io/v1
+kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: coolstore-postgresql
-  labels:
-    application: coolstore
 spec:
   strategy:
     type: Recreate
@@ -21,19 +19,18 @@ spec:
   - type: ConfigChange
   replicas: 1
   selector:
-    deploymentConfig: coolstore-postgresql
+    matchLabels:
+      name: coolstore-postgresql
   template:
     metadata:
-      name: coolstore-postgresql
       labels:
-        deploymentConfig: coolstore-postgresql
-        application: coolstore
+        name: coolstore-postgresql
     spec:
       terminationGracePeriodSeconds: 60
       containers:
       - name: coolstore-postgresql
-        image: postgresql
-        imagePullPolicy: Always
+        image: registry.redhat.io/rhel8/postgresql-10
+        imagePullPolicy: IfNotPresent
         readinessProbe:
           exec:
             command:
@@ -75,7 +72,7 @@ spec:
   - port: 5432
     targetPort: 5432
   selector:
-    deploymentConfig: coolstore-postgresql
+    name: coolstore-postgresql
 metadata:
   name: coolstore-postgresql
   labels:
