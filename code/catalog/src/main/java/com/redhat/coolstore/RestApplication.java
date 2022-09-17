@@ -22,7 +22,7 @@ public class RestApplication {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                CorsRegistration reg = registry.addMapping("/**");
+                CorsRegistration reg = registry.addMapping("/services/**");
                 reg.allowedOrigins("*");
             }
         };
