@@ -90,7 +90,30 @@
 6. rollback by the backup tool.
    > switch to demo how to rollback by the backup tool ...
 
+<br>
+---
+<br>
 
 
 Since OpenShift 4.11, the "restricted-v2" SCC was introduced. The new "restricted-v2" SCC drops "ALL" capabilities from a container (compared to the "restricted" SCC that dropped only a subset), and as a result of this, workloads created in OpenShift 4.11 might fail for a lack of permissions to perform certain operations.
-reference [https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards](https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards)
+reference [https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards](https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards)<br>
+
+For this demo app, we will get "CreateContainerError" for the "inventory" service deployment because the "inventory" service exec "/deployments/run-java.sh"  when start the container. (You could see detail in [Dockerfile.jvm](../code/inventory/src/main/docker/Dockerfile.jvm))
+
+   ![](../images/run-java-sh.jpg)<br>
+
+If you look at the "Events" tab of the "inventory-xxx" pod, you will see error message like this <br>
+
+    " Error: container create failed: time="2023-05-06T15:13:42Z" level=error msg="runc create failed: unable to start container process: exec /deployments/run-java.sh: permission denied" 
+
+   ![](../images/inventory-permission-denied.png)<br>
+
+To fix this issue, you could run the following command 
+
+    oc adm policy add-scc-to-user anyuid -z default -n demo
+
+or remove permission by this command
+
+    oc adm policy remove-scc-from-user anyuid -z default -n demo
+
+
