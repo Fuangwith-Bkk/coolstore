@@ -123,4 +123,4 @@ To fixing this warning message:
 
     Warning: would violate PodSecurity "restricted:v1.24"
 
-you could follow this article [Fixing PodSecurity Admission warnings for deployments](Fixing PodSecurity Admission warnings for deployments)
+you could follow this article [Fixing PodSecurity Admission warnings for deployments](https://access.redhat.com/solutions/7002730)
