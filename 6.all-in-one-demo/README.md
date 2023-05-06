@@ -114,6 +114,13 @@ To fix this issue, you could run the following command
 
 or remove permission by this command
 
-    oc adm policy remove-scc-from-user anyuid -z default -n demo
+    oc adm policy remove-scc-from-user anyuid -z default -n demo 
 
+<br>
+---
+<br>
+To fixing this warning message:
 
+    Warning: would violate PodSecurity "restricted:v1.24"
+
+you could follow this article [Fixing PodSecurity Admission warnings for deployments](Fixing PodSecurity Admission warnings for deployments)
