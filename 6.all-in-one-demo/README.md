@@ -89,3 +89,8 @@
 
 6. rollback by the backup tool.
    > switch to demo how to rollback by the backup tool ...
+
+
+
+Since OpenShift 4.11, the "restricted-v2" SCC was introduced. The new "restricted-v2" SCC drops "ALL" capabilities from a container (compared to the "restricted" SCC that dropped only a subset), and as a result of this, workloads created in OpenShift 4.11 might fail for a lack of permissions to perform certain operations.
+reference [https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards](https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards)
