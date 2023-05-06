@@ -108,11 +108,11 @@ If you look at the "Events" tab of the "inventory-xxx" pod, you will see error m
 
    ![](../images/inventory-permission-denied.png)<br>
 
-To fix this issue, you could run the following command 
+To fix this issue, you need to add permission to default service account by using following command 
 
     oc adm policy add-scc-to-user anyuid -z default -n demo
 
-or remove permission by this command
+if you would like to remove permission, use following command:
 
     oc adm policy remove-scc-from-user anyuid -z default -n demo 
 
